@@ -2,6 +2,10 @@ import React from 'react';
 import Link from 'next/link';
 import Head from 'next/head';
 
+import Router from 'next/router'
+
+import withGA from 'next-ga';
+
 const Home = () => (
 
   <div>
@@ -15,4 +19,4 @@ const Home = () => (
   </div>
 );
 
-export default Home;
+export default withGA("Page view", Router)(Home);

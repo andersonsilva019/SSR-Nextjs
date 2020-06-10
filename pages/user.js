@@ -1,12 +1,13 @@
 import React from 'react';
 import axios from 'axios';
 import Head from 'next/head';
+import Router from 'next/router';
 
 import Link from 'next/link';
 
-function User ({ users }) {
+import withGA from 'next-ga';
 
-return (
+const User = ({ users }) => (
     <>
       <Head>
         <title>Users</title>
@@ -24,20 +25,16 @@ return (
       </div>
     </>
   )
-}
 
 /* Serve para carregar as informações no lado do back-end */
 
-export async function getStaticProps() {
+User.getInitialProps = async () => {
   const response = await axios.get(
     'https://api.github.com/orgs/rocketseat/members'
   );
 
-  return { 
-    props: {
-      users: response.data,
-    }
-   }
+  return { users: response.data }
+   
 }
 
-export default User;
+export default withGA("Page view", Router)(User);
