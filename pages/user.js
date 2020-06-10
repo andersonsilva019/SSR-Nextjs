@@ -4,33 +4,40 @@ import Head from 'next/head';
 
 import Link from 'next/link';
 
-const User = ({ users }) => (
-  <>
-    <Head>
-      <title>Users</title>
-    </Head>
-    
-    <div>
-      <ul>
-        { users.map(user => (
-          <li key={user.id}>{user.login}</li>
-        ))}
-      </ul>
-      <Link href="/">
-          <a>Home</a>
-      </Link>
-    </div>
-  </>
-)
+function User ({ users }) {
+
+return (
+    <>
+      <Head>
+        <title>Users</title>
+      </Head>
+      
+      <div>
+        <ul>
+          { users.map(user => (
+            <li key={user.id}>{user.login}</li>
+          ))}
+        </ul>
+        <Link href="/">
+            <a>Home</a>
+        </Link>
+      </div>
+    </>
+  )
+}
 
 /* Serve para carregar as informações no lado do back-end */
 
-User.getInitialProps = async () => {
+export async function getStaticProps() {
   const response = await axios.get(
     'https://api.github.com/orgs/rocketseat/members'
   );
 
-  return { users: response.data }
+  return { 
+    props: {
+      users: response.data,
+    }
+   }
 }
 
 export default User;
