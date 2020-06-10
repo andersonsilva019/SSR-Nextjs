@@ -12,7 +12,7 @@ const Home = () => (
     <Head>
       <title>Home</title>
     </Head>
-
+    <img src="/static/cart.png" alt="etst" width="200"/>
     <Link href="/user">
       <a>User</a>
     </Link>
